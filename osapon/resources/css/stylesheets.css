@@ -1,0 +1,267 @@
+body {
+    font-family: "Courier New";
+    margin: 0;
+    cursor: default;
+}
+
+[data-title] {
+    position: relative;
+}
+[data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute;
+    bottom: -5px;
+    left: 55px;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 2px;
+    background: #d3d7d5;
+    color: #4e4e4e;
+    font-size: 12px;
+    font-family: sans-serif;
+    white-space: nowrap;
+}
+[data-title]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 8px;
+    display: inline-block;
+    color: #4e4e4e;
+    border: 8px solid transparent;
+}
+
+.important {
+    color: red;
+}
+.exit {
+    float: right;
+    text-align: left;
+    font-size: 20px;
+    padding: 5px;
+}
+.exit:hover {
+    cursor: pointer;
+}
+label {
+    margin: 3px;
+}
+.login, .registration, .credentials {
+    background-color: black;
+    opacity: 0.9;
+    padding: 15px 50px;
+}
+.signIn:hover, .signUp:hover, #toMain, #toProfile, #toAuthorize, #toLogOut, #update {
+    cursor: pointer;
+}
+.login div, .registration div, .edit-profile-wrapper div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+#signIn, #signUp, #update {
+    width: 70px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: #4e4e4e;
+    font-family: "Courier New";
+}
+
+#signIn:hover, #signUp:hover, #update:hover {
+    background-color: #4e4e4e;
+    color: white;
+}
+
+.login input, .registration input, .edit-profile-wrapper input {
+    margin-top: 5px;
+    border-radius: 5px;
+    /*width: 100%;*/
+    padding: 4px 8px;
+    font-size: 14px;
+    border: none;
+    font-family: "Courier New";
+    color: #4e4e4e;
+    outline: none;
+}
+.switcher {
+    border-bottom: 1px solid whitesmoke;
+    text-align: center;
+    display: flex;
+    width: 100%;
+    position: relative;
+    color: whitesmoke;
+}
+.signIn, .signUp {
+    width: 50%;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.signIn {
+    border-right: 1px solid #4e4e4e;
+}
+.signUp {
+    border-left: 1px solid #4e4e4e;
+}
+
+.pop-up-wrap, .edit-profile-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#greetings .content-wrap {
+    color: whitesmoke;
+    background-color: black;
+    opacity: 0.9;
+    padding: 50px 70px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#greetings .content-wrap .exit {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.form-wrapper, .edit-profile-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.credentials, .edit-profile-wrapper {
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: "Courier New";
+    color: whitesmoke;
+}
+.welcome-text {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.menu {
+    background-color: black;
+    position: fixed;
+    display: flex;
+    width: 70px;
+    flex-flow: column;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.9;
+}
+.topMenu .menu-item, .bottomMenu .menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+.topMenu .img-wrap, .bottomMenu .img-wrap {
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#toMain:hover, #toProfile:hover, #toLogOut:hover, #toAuthorize:hover {
+    color: cornflowerblue;
+}
+.menu-item {
+    border-bottom: 1px solid whitesmoke;
+}
+.bottomMenu .menu-item:last-child {
+    border-bottom: none;
+}
+.bottomMenu .menu-item:first-child {
+    border-top: 1px solid whitesmoke;
+}
+.bottomMenu {
+    margin-top: auto;
+}
+#app {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.main {
+    background-image: url("icons/home-main.png");
+}
+.main:hover {
+    background-image: url("icons/home-hover.png");
+}
+.profile {
+    background-image: url("icons/user-main.png");
+}
+.profile:hover {
+    background-image: url("icons/user-hover.png");
+}
+.sign-out {
+    background-image: url("icons/sign-out-main.png");
+}
+.sign-out:hover {
+    background-image: url("icons/sign-out-hover.png");
+}
+.authorize {
+    background-image: url("icons/authorize-main.png");
+}
+.authorize:hover {
+    background-image: url("icons/authorize-hover.png");
+}
+
+.footer-wrap {
+    cursor: default;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 17vw;
+    font-size: 10px;
+    font-style: italic;
+    text-align: right;
+    opacity: 0.5;
+    color: darkgray;
+    padding: 0 5px 5px 0;
+}
+.footer-item {
+    margin: 5px;
+}
+
+.footer-name {
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.footer-wrap .intro {
+    text-align: center;
+    font-size: 8px;
+    margin-bottom: 10px;
+}

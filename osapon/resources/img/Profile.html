@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://localhost:8080/profile -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Profile</title>
+    <link rel="shortcut icon" href="http://localhost:8080/resources/img/42logo.png" type="image/png">
+    <script src="./Profile_files/fetch.js"></script>
+    <link rel="stylesheet" href="./Profile_files/stylesheets.css">
+    <link rel="stylesheet" href="./Profile_files/profile.css">
+    <script>
+		//scripts after DOM loaded
+		document.addEventListener('DOMContentLoaded', () => {
+			let greetings = document.getElementById('greetings');
+			let formWrapper = document.getElementById('form-wrapper');
+			document.onclick = e => {
+				if(!(e.target.closest('.content-wrap')) && greetings.style.display === "flex"){
+					greetings.style.display = 'none';
+				} else if (!(e.target.closest('.credentials')) && formWrapper.style.display === "flex") {
+					formWrapper.style.display = 'none';
+				}
+			};
+			fetch("http://localhost:8080/api/checkAuthorize")
+			.then((response) => response.json())
+			.then((result) => {
+				let res = JSON.stringify(result);
+				console.log(res);
+				let authorizedButton = document.getElementById("toAuthorize");
+				let logoutButton = document.getElementById("toLogOut");
+				let profileButton = document.getElementById("toProfile");
+				if (res == 201) {
+					authorizedButton.style.display = "flex";
+					profileButton.remove();
+					logoutButton.remove();
+					setTimeout(() => document.getElementById("greetings").style.display = "flex", 0);
+				} else {
+					logoutButton.style.display = "flex";
+					profileButton.style.display = "flex";
+					authorizedButton.remove();
+				}
+			});
+		})
+    </script>
+    <style>
+        .video--content-wrapper {
+            display: flex;
+            flex-flow: column;
+        }
+        .web-cam-btns {
+            margin-bottom: 10px;
+        }
+
+        .web-cam-btns button {
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body onload="init()">
+<div class="menu">
+    <div class="topMenu">
+        <div id="toMain" class="menu-item" data-mn-role="menu" data-title="Main">
+            <div class="img-wrap main"></div>
+        </div>
+        <div id="toProfile" class="menu-item" data-mn-role="profile" data-title="Profile" style="display: flex;">
+            <div class="img-wrap profile"></div>
+        </div>
+    </div>
+    <div class="bottomMenu">
+        
+        <div id="toLogOut" class="menu-item" data-mn-role="sign-out" data-title="Sign-out" style="display: flex;">
+            <div class="img-wrap sign-out"></div>
+        </div>
+    </div>
+</div>
+
+<div id="app">
+    <div class="content-wrap">
+        <div class="user-wrap">
+            <div class="img-wrap">
+                <img src="./Profile_files/user-portrait.jpg" alt="">
+            </div>
+            <div class="info-wrap">
+                <div class="user-data-wrap">
+                    <div class="user-name">
+                        <div>First name / Last name</div>
+                    </div>
+                    <div class="edit-profile">
+                        <div>Edit profile</div>
+                    </div>
+                </div>
+                <div class="activity-wrap">
+                    <div class="post-amount"><span class="amount">25</span> posts</div>
+                </div>
+                <div class="description-wrap">
+                    <div class="description">
+                        Long text description about user
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-wrap-main">
+            <div class="tab-bar-wrap">
+                <div class="tab-bar-item" data-role="gallery">
+                    <div class="tab-bar-item-icon" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/grid-active.png&quot;)"></div>
+                    Publications
+                </div>
+                <div class="tab-bar-item" data-role="saved">
+                    <div class="tab-bar-item-icon" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/bookmark-profile.png&quot;)"></div>
+                    Saved
+                </div>
+                <div class="tab-bar-item active" data-role="photo">
+                    <div class="tab-bar-item-icon" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/camera-tab.png&quot;)"></div>
+                    Add new photo
+                </div>
+            </div>
+            <div class="content-wrap-gallery">
+                <div class="gallery-wrap" style="display: none;">
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">5</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">3</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">4</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">6</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">3</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">7</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">1</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">8</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature.jpg&#39;)">
+                        <div class="img-description-wrap">
+                            <div class="description-item" style="background-image: url(&quot;http://localhost:8080/resources/css/icons/heart-main.png&quot;)">10</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="saved-wrap" style="display: none">
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                    <div class="saved-item" style="background-image: url(&#39;http://localhost:8080/resources/img/nature2.jpg&#39;)">
+                        <div class="img-description-wrap"></div>
+                    </div>
+                </div>
+                <div class="photo-wrap" style="display: flex;">
+                    <div class="video--content-wrapper">
+                        <div class="web-cam-btns">
+                            <button onclick="startWebcam();">Start</button>
+                            <button onclick="stopWebcam();">Stop</button>
+                            <button onclick="snapshot();">Take</button>
+                            <button onclick="snapshot();">Save</button>
+                        </div>
+                        <div class="video-wrapper">
+                            <video onclick="snapshot(this);" width="150" height="125" id="video" autoplay=""></video>
+                        </div>
+                    </div>
+                    <canvas id="canvas" width="250" height="125"></canvas>
+                    <div>HERE WILL BE EDITING PHOTO FUTURES</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-wrap">
+    <!--<div class="footer-item intro">Camagru - studying project from Ecole 42</div>-->
+    <div class="footer-item">Designed and developed by <span class="footer-name">Oleksandr Sapon</span> - student from <span class="footer-name">UNIT Factory</span></div>
+    <div class="footer-item">contact info: </div>
+</div>
+<div id="form-wrapper" class="form-wrapper pop-up-wrap" style="display: none">
+    <div id="credentials" class="credentials">
+        <div class="switcher">
+            <div class="signIn switcher-item" data-sw-role="sign-in" style="background-color: black;">Sign In</div>
+            <div class="signUp switcher-item" data-sw-role="sign-up" style="background-color: black; opacity: 0.5">Don't have account yet? Sign Up!</div>
+        </div>
+        <div class="login">
+            <div>
+                <label for="signInLogin">Login: </label>
+                <input id="signInLogin" name="login" type="text" placeholder="Your login">
+            </div>
+            <div>
+                <label for="signInPassword">Password: </label>
+                <input id="signInPassword" name="password" type="password" placeholder="Your password">
+            </div>
+            <div>
+                <button id="signIn">Sign In</button>
+            </div>
+        </div>
+        <div class="registration" style="display: none">
+            <div>
+                <label for="email">Email: <span class="important">*</span></label>
+                <input id="email" name="email" type="email" placeholder="Your email ">
+            </div>
+            <div>
+                <label for="signUpLogin">Login: <span class="important">*</span></label>
+                <input id="signUpLogin" name="login" type="text" placeholder="Your login ">
+            </div>
+            <div>
+                <label for="firstname">First name: </label>
+                <input id="firstname" name="firstname" type="text" placeholder="Your first name">
+            </div>
+            <div>
+                <label for="lastname">Last name: </label>
+                <input id="lastname" name="lastname" type="text" placeholder="Your last name">
+            </div>
+            <div>
+                <label for="signUpPassword">Password (min 6 symbols): <span class="important">*</span></label>
+                <input id="signUpPassword" name="password" type="password" placeholder="Your password">
+            </div>
+            <div>
+                <label for="rePassword">Match your password: <span class="important">*</span></label>
+                <input id="rePassword" name="rePassword" type="password" placeholder="Match your password">
+            </div>
+            <div>
+                <button id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="greetings" style="display: none" class="pop-up-wrap">
+    <div class="content-wrap">
+        <div class="exit">x</div>
+        <div class="welcome-text">Welcome on Camagru</div>
+    </div>
+</div>
+<script src="./Profile_files/allPagesScripts.js"></script>
+<script>
+	navigator.getUserMedia = ( navigator.getUserMedia ||
+		navigator.webkitGetUserMedia ||
+		navigator.mozGetUserMedia ||
+		navigator.msGetUserMedia);
+
+	let video;
+	let webcamStream;
+	function startWebcam() {
+		if (navigator.getUserMedia) {
+			navigator.getUserMedia (
+                {
+					video: true,
+					audio: false
+				},
+				function(localMediaStream) {
+					video = document.querySelector('video');
+					video.srcObject = localMediaStream;
+					webcamStream = localMediaStream;
+				},
+				function(err) {
+					console.log("The following error occured: " + err);
+				}
+			);
+		} else {
+			console.log("getUserMedia not supported");
+		}
+	}
+	function stopWebcam() {
+		webcamStream.getVideoTracks()[0].stop();
+		video = undefined;
+	}
+	let canvas, ctx;
+	function init() {
+		canvas = document.getElementById("canvas");
+		ctx = canvas.getContext('2d');
+	}
+	function snapshot() {
+		if (video) {
+			ctx.drawImage( video, 0, 0, canvas.width, canvas.height );
+		}
+	}
+
+    let tabBarItems = document.querySelectorAll(".tab-bar-item");
+    let removeActive = targets => {
+        for (item of targets) {
+            item.setAttribute("class", "tab-bar-item")
+        }
+    };
+    let activateTab = (target, active, inactiveFst, inactiveSec) => {
+		target.setAttribute("class", "tab-bar-item active");
+		document.getElementsByClassName(active)[0].style.display = "flex";
+		document.getElementsByClassName(inactiveFst)[0].style.display = "none";
+		document.getElementsByClassName(inactiveSec)[0].style.display = "none";
+    };
+    for (tabItem of tabBarItems) {
+    	tabItem.addEventListener("click", e => {
+            switch (e.target.getAttribute("data-role")) {
+                case "gallery":
+                	removeActive(tabBarItems);
+                    activateTab(e.target, "gallery-wrap", "saved-wrap", "photo-wrap");
+                    break;
+                case "saved":
+					removeActive(tabBarItems);
+					activateTab(e.target, "saved-wrap", "photo-wrap", "gallery-wrap");
+                    break;
+                case "photo":
+					removeActive(tabBarItems)
+                    activateTab(e.target, "photo-wrap", "gallery-wrap", "saved-wrap");
+                	break;
+                default:
+					break;
+            }
+		})
+    }
+</script>
+
+</body></html>

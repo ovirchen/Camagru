@@ -1,0 +1,285 @@
+#app {
+    margin-left: auto;
+    margin-right: 0;
+    width: calc(100% - 70px);
+}
+#app .content-wrap {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+#app .content-wrap .user-wrap {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+#app .content-wrap .user-wrap .img-wrap {
+    width: 150px;
+    height: auto;
+    margin: 15px 20px 15px 0;
+}
+#app .content-wrap .user-wrap .img-wrap img {
+    border: 1px solid #4e4e4e75;
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+#app .content-wrap .user-wrap .info-wrap {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+#app .content-wrap .user-wrap .info-wrap .user-data-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+#app .content-wrap .user-wrap .info-wrap .user-data-wrap .user-name {
+    margin: 0 25px 5px 25px;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    font-weight: bolder;
+}
+#app .content-wrap .user-wrap .info-wrap .user-data-wrap .edit-profile {
+    margin: 0 50px 15px 25px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #4e4e4e75;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-weight: bold;
+
+}
+.edit-profile:hover {
+    background-color: #4e4e4e75;
+    border: 1px solid whitesmoke;
+    color: whitesmoke;
+    cursor: pointer;
+}
+#app .content-wrap .user-wrap .info-wrap .activity-wrap {
+    width: 100%;
+    display: flex;
+    margin: 0 15px 15px 25px;
+    font-size: 14px;
+}
+.amount {
+    font-weight: bolder;
+}
+#app .content-wrap .user-wrap .info-wrap .description-wrap {
+    width: 50%;
+    display: flex;
+    margin: 0 15px 15px 25px;
+}
+
+#app .content-wrap .gallery-wrap-main {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+}
+#app .content-wrap .gallery-wrap-main .tab-bar-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#app .content-wrap .gallery-wrap-main .tab-bar-wrap .tab-bar-item {
+    display: flex;
+    margin: -1px 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    opacity: 0.3;
+    border-top: 1px solid transparent;
+    transition: all .5s ease;
+    justify-content: center;
+    align-items: center;
+}
+#app .content-wrap .gallery-wrap-main .tab-bar-wrap .tab-bar-item.active {
+    border-top: 1px solid black;
+    opacity: 1;
+}
+
+#app .content-wrap .gallery-wrap-main .content-wrap-gallery .gallery-wrap, #app .content-wrap .gallery-wrap-main .content-wrap-gallery .saved-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    /*padding-right: 7%;*/
+}
+
+#app .content-wrap .gallery-wrap-main .content-wrap-gallery .gallery-wrap .gallery-item,  #app .content-wrap .gallery-wrap-main .content-wrap-gallery .saved-wrap .saved-item {
+    width: 30%;
+    margin: 0 1% 3% 0;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 275px;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+#app .content-wrap .gallery-wrap-main .content-wrap-gallery .gallery-wrap .gallery-item:hover,  #app .content-wrap .gallery-wrap-main .content-wrap-gallery .saved-wrap .saved-item:hover {
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.img-description-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: rotate 2s;
+}
+.img-description-wrap:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.delete-user-image {
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+
+.description-item, .delete-user-image  {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin: 0 15px;
+    overflow: hidden;
+    display: none;
+    color: darkred;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-weight: bolder;
+    font-size: 10px;
+    padding-top: 1px;
+    opacity: 1;
+    transform: rotate(360deg);
+}
+.tab-bar-item-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 0 0;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.img-description-wrap:hover .description-item, .img-description-wrap:hover .delete-user-image {
+    display: flex;
+}
+
+ .video--content-wrapper {
+     display: flex;
+     flex-flow: column;
+     margin: 5px;
+ }
+.web-cam-btns {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.play-btn, .snap-btn, .save-snap, .stop-btn, .clear-snap, .choose-pic {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    overflow: hidden;
+}
+.play-btn {
+    background-image: url("http://localhost:8080/resources/css/icons/play-main.png");
+}
+.play-btn:hover {
+    background-image: url("http://localhost:8080/resources/css/icons/play-hover.png");
+}
+.snap-btn {
+    background-image: url("http://localhost:8080/resources/css/icons/preview-main.png");
+}
+.snap-btn:hover {
+    background-image: url("http://localhost:8080/resources/css/icons/preview-hover.png");
+}
+.save-snap {
+    display: none;
+    background-image: url("http://localhost:8080/resources/css/icons/turn-main.png");
+}
+.save-snap:hover {
+    background-image: url("http://localhost:8080/resources/css/icons/turn-hover.png");
+}
+.clear-snap {
+    background-image: url("http://localhost:8080/resources/css/icons/delete-main.png");
+}
+.clear-snap:hover {
+    background-image: url("http://localhost:8080/resources/css/icons/delete-hover.png");
+}
+.choose-pic {
+    background-image: url("http://localhost:8080/resources/css/icons/folder-main.png");
+}
+.choose-pic:hover {
+    background-image: url("http://localhost:8080/resources/css/icons/folder-hover.png");
+}
+.video-wrapper {
+    padding-top: 5px;
+    border: 1px solid #4e4e4e;
+}
+video {
+    background-color: black;
+}
+.canvas-wrapper {
+    display: flex;
+    flex-flow: column;
+    margin: 5px;
+    justify-content: center;
+}
+.canvas-item {
+    padding-top: 5px;
+    border: 1px solid #4e4e4e;
+}
+canvas {
+    background-color: black;
+}
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.frame-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 25px 5px 5px 30px;
+}
+.frame-item {
+    width: 20%;
+    height: auto;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.frame-wrapper .frame-item img {
+    width: 50px;
+    height: auto;
+}
+.photo-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
