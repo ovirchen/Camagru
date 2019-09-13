@@ -33,11 +33,11 @@ function createBox(id) {
 //
 // getId();
 
-$(document).keyup(function(e) {
-    if (e.key === "Escape") { // escape key maps to keycode '27'
-        document.getElementById("createBox").style.display = 'none';
-    }
-});
+// $(document).keyup(function(e) {
+//     if (e.key === "Escape") { // escape key maps to keycode '27'
+//         document.getElementById("createBox").style.display = 'none';
+//     }
+// });
 
 function logout() {
     // $controller = new Controller_Main();

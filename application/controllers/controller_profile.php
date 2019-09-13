@@ -26,7 +26,7 @@ class Controller_Profile extends Controller
             //alert
             echo "ERROR LOADING FILE";
             die();
-            header('Location: http://localhost:8080/profile');
+            header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
         }
         $filename = $_FILES['filename']['name'];
         $file = basename($filename);
@@ -37,6 +37,6 @@ class Controller_Profile extends Controller
         // проверка наличия такого файла
         copy($filename, $newfile);
         $photo->insertPhoto();
-        header('Location: http://localhost:8080/profile');
+        header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
     }
 }

@@ -150,20 +150,6 @@ VALUES (? ,? ,? ,? ,?)");
         }
     }
 
-//    public function loginUser()
-//    {
-//        $stmt = parent::getInstance()->query('SELECT * FROM `user` WHERE id="' . $this->id . '"');
-//        if ($stmt)
-//            parent::getInstance()->exec('UPDATE `user` SET valid=1 WHERE id="' . $this->id . '"');
-//    }
-//
-//    public function logoutUser()
-//    {
-//        $stmt = parent::getInstance()->query('SELECT * FROM `user` WHERE id="' . $this->id . '"');
-//        if ($stmt)
-//            parent::getInstance()->exec('UPDATE `user` SET valid=0 WHERE id="' . $this->id . '"');
-//    }
-
     public function updateUser() {
 
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:3306
--- Час створення: Вер 12 2019 р., 11:12
+-- Час створення: Вер 13 2019 р., 10:18
 -- Версія сервера: 5.7.21
 -- Версія PHP: 7.1.16
 
@@ -29,6 +29,31 @@ use insta;
 -- --------------------------------------------------------
 
 --
+-- Структура таблиці `comment`
+--
+
+CREATE TABLE `comment` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `photo_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `text` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблиці `likes`
+--
+
+CREATE TABLE `likes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `photo_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблиці `photo`
 --
 
@@ -49,7 +74,10 @@ INSERT INTO `photo` (`id`, `user_id`, `path`, `likes`) VALUES
 (3, 5, 'images/photoes/2d3b72a92d645e17c79e8d7596915c1b.jpg', 0),
 (4, 5, 'images/photoes/47f5f9c6dd325428fec691d946691e5a.jpg', 0),
 (5, 5, 'images/photoes/996aab41ff835efe4db1682d7e7c454f.jpg', 0),
-(6, 5, 'images/photoes/5af07e07f141fc36812a822223876c9b.jpg', 0);
+(6, 5, 'images/photoes/5af07e07f141fc36812a822223876c9b.jpg', 0),
+(19, 6, 'images/photoes/72f69dd8e7e88bdb44abbea4b5ccbe9b.jpg', 0),
+(20, 6, 'images/photoes/cfbe9025ba4c1eb5da5dd4e2a002d5ba.jpg', 0),
+(21, 5, 'images/photoes/87dcda1dd9ea915083626b4d8941256d.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -80,6 +108,18 @@ INSERT INTO `user` (`id`, `username`, `firstname`, `lastname`, `email`, `passwor
 --
 
 --
+-- Індекси таблиці `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Індекси таблиці `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Індекси таблиці `photo`
 --
 ALTER TABLE `photo`
@@ -98,10 +138,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT для таблиці `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблиці `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблиці `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT для таблиці `user`

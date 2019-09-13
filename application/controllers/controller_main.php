@@ -19,8 +19,11 @@ class Controller_Main extends Controller
         if (($test = $user->getUserByName($username)) && ($user->getPassword() === hash('whirlpool', $password)))
         {
             $_SESSION['user'] = $test;
+            header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
         }
-        header('Location: http://localhost:8080/profile');
+        echo "INCORRECT LOGIN OR PASSWORD";
+        die();
+        header('Location: http://localhost:8080/login');
     }
 
     function action_register()
