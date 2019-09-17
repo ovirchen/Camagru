@@ -11,7 +11,7 @@ class Controller_Profile extends Controller
 
     function action_index()
     {
-        if (!isset($_SESSION['user']))
+        if (!isset($_SESSION['user']) && !isset($_GET['id']))
         {
             header('Location: http://localhost:8080/login');
         }
@@ -38,5 +38,10 @@ class Controller_Profile extends Controller
         copy($filename, $newfile);
         $photo->insertPhoto();
         header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
+    }
+
+    function action_add_like()
+    {
+
     }
 }
