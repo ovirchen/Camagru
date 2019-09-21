@@ -34,17 +34,22 @@ class Route
         $controller_file = strtolower($controller_name) . '.php';
         $controller_path = 'application/controllers/' . $controller_file;
 
-        if (file_exists($controller_path)) {
-            include $controller_path;
-        }
-        else {
-            self::ErrorPage404();
-        }
-        $controller = new $controller_name;
-        if (method_exists($controller, $action)) {
-            $controller->$action();
-        }
-        else {
+        try {
+            if (file_exists($controller_path)) {
+                include $controller_path;
+            } else {
+                throw new Exception('File not found.');
+//                self::ErrorPage404();
+            }
+            $controller = new $controller_name;
+            if (method_exists($controller, $action)) {
+                $controller->$action();
+            } else {
+                throw new Exception('File not found.');
+//                self::ErrorPage404();
+            }
+        } catch (Exception $e)
+        {
             self::ErrorPage404();
         }
 
@@ -53,7 +58,7 @@ class Route
 
     private function ErrorPage404()
     {
-        include 'application/controllers/controller_404.php';
+        require_once 'application/controllers/controller_404.php';
         $not_found = new Controller_404();
         $not_found->action_index();
     }

@@ -42,6 +42,19 @@ class Controller_Profile extends Controller
 
     function action_add_like()
     {
+        if (isset($_POST['data']))
+        {
+            $data = json_decode($_POST['data']);
+//            var_dump($data);
+            $photo = new Photo();
+            $photo->setId($data->photoId);
+            if ($photo->addLike($data->userId))
+                echo json_encode(['status' => 200, 'message' => 'Like added', 'amount' => $photo->countLikes()]);
+        } else {
+            echo json_encode(['status'=> 400, 'message' => 'Cannot set like']);
+        }
+//        $data = json_decode($_POST['data']);
+
 
     }
 }

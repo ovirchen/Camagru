@@ -1,3 +1,4 @@
+
 menu.onclick = function menuFunction() {
     let x = document.getElementById('headerNav');
 
@@ -8,15 +9,32 @@ menu.onclick = function menuFunction() {
     }
 };
 
-// Grab elements, create settings, etc.
-var video = document.getElementById('video');
+let likes = document.querySelectorAll(".icon-item");
 
-// Get access to the camera!
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    // Not adding `{ audio: true }` since we only want video now
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        //video.src = window.URL.createObjectURL(stream);
-        video.srcObject = stream;
-        video.play();
-    });
+async function request(url, obj) {
+    let fd = new FormData();
+    fd.append('data', JSON.stringify(obj));
+
+    let response = await fetch(url,{ method: 'POST', body: fd });
+    return await response.json();
 }
+
+async function itemFunction(e) {
+    let x = e.target;
+    let photo_id = x.getAttribute('photo_id');
+    let user_id = x.getAttribute('user_id');
+    console.log(photo_id, user_id);
+    if (user_id != 0) {
+        let responce = await request('/profile/add_like', {userId: user_id, photoId: photo_id});
+        if (responce.status == 200) {
+            const sibling = x.nextElementSibling;
+            sibling.innerText = responce.amount;
+            console.log("sibling: ", sibling);
+        } else {
+            alert("ERROR");
+        }
+    }
+}
+
+likes.forEach(like => like.addEventListener('click', itemFunction));
+

@@ -32,7 +32,43 @@ class Photo extends Database
     public function setPath($path) { $this->path = $path; }
 
     public function getLike() { return $this->like; }
-    public function addLike() { $this->like++; }
+    public function addLike($user_id)
+    {
+        try {
+            $stmt = parent::getInstance()->prepare("SELECT * FROM `likes` WHERE user_id=? AND photo_id=?");
+            $stmt->bindParam(1, $user_id);
+            $stmt->bindParam(2, $this->id);
+            $stmt->execute();
+            if (!$stmt)
+                return false;
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!$result)
+            {
+                $stmt = parent::getInstance()->prepare("INSERT INTO `likes` (user_id, photo_id) VALUES (? ,?)");
+                $stmt->bindParam(1, $user_id);
+                $stmt->bindParam(2, $this->id);
+                return $stmt->execute();
+            }
+            else {
+                $stmt = parent::getInstance()->prepare("DELETE FROM `likes` WHERE user_id=? AND photo_id=?");
+                $stmt->bindParam(1, $user_id);
+                $stmt->bindParam(2, $this->id);
+                return $stmt->execute();
+            }
+        } catch (PDOException $e)
+        {
+            return false;
+        }
+    }
+
+    public function countLikes() {
+        $stmt = parent::getInstance()->prepare("SELECT * FROM `likes` WHERE photo_id=?");
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+        if ($stmt)
+            return $stmt->rowCount();
+        return -1;
+    }
 
     public function insertPhoto() : bool {
         try {

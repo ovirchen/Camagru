@@ -10,12 +10,16 @@ class Model_Profile extends Model {
         if (isset($_GET['id']))
         {
             $photo = new Photo();
-            $result = $photo->getPhotoByUser($_GET['id']);
+            $arr = $photo->getPhotoByUser($_GET['id']);
+            if ($arr)
+                $result = array_reverse($arr);
         }
         else if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
             $photo = new Photo();
-            $result = $photo->getPhotoByUser($user['id']);
+            $arr = $photo->getPhotoByUser($user['id']);
+            if ($arr)
+                $result = array_reverse($arr);
         }
         return $result;
     }

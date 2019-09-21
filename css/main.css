@@ -8,7 +8,12 @@ html, body {
     font-size: 17px;
     color: #99ffcc;
     background-color: #cec8bb;
+}
 
+a {
+    color: ghostwhite;
+    padding: 0;
+    margin: 0;
 }
 
 header {
@@ -96,19 +101,6 @@ nav {
     }
 }
 
-div.main {
-    background: black;
-    color: ghostwhite;
-    font-size: 18px;
-    text-align: center;
-    width: 100%;
-    font-style: oblique;
-}
-div.main p{
-    font-size: 100px;
-    margin-top: 20vw;
-}
-
 div.profile {
     color: ghostwhite;
     font-size: 18px;
@@ -134,13 +126,57 @@ div.profile {
     width: 200px;
     height: 200px;
     border-radius: 100px;
-    box-shadow: 0 0 7px #999999;
+    /*box-shadow: 0 0 7px #999999;*/
+    box-shadow: 10px 10px 20px #ada89e;
+    border: 4px solid #cc9900;
+}
+
+.icon-item:hover {
+    cursor: pointer;
 }
 
 .profile-photoes {
     display: flex;
     flex-wrap: wrap;
-    /*width: 100%;*/
+}
+
+.page_not_found {
+    background-color: #000000;
+    width: 100%;
+    height: 100vh;
+    font-style: oblique;
+}
+
+.page_not_found p{
+    font-size: 120px;
+    margin-top: 120px;
+    padding-right: 60px;
+}
+
+.page_not_found img{
+    position: absolute;
+    margin: auto;
+    top: 100px;
+    left: 0;
+    right: 0;
+}
+
+.page_not_found div{
+    position: absolute;
+    margin: auto;
+    top: 100px;
+    left: 0;
+    right: 0;
+}
+
+
+.username {
+    padding: 10px;
+}
+.add-photo {
+    text-align: center;
+    padding: 10px;
+
 }
 
 div.registration {
@@ -200,6 +236,7 @@ input {
     margin-top: 5px;
     margin-bottom: 30px;
     border-radius: 8px;
+    padding: 3px;
 }
 
 input.button {
@@ -263,6 +300,7 @@ input.button {
         position: relative;
     }
     .responsive .header-items {
+        z-index: 1;
         position: absolute;
         height: auto;
         flex-flow: column;
@@ -270,6 +308,7 @@ input.button {
         width: 160px;
         border-top: 1px solid white;
         background-color: #cc9900;
+        box-shadow: 10px 10px 20px #ada89e;
     }
 }
 
@@ -280,6 +319,7 @@ input.button {
     background-color: #cca225;
     border-radius: 10px;
     position: relative;
+    box-shadow: 10px 10px 20px #ada89e;
 }
 
 .photo-wrapper {
@@ -309,9 +349,6 @@ input.button {
     width: 30px;
     height: auto;
     margin-right: 5px;
-}
-a {
-    color: ghostwhite;
 }
 
 .comment-form {
@@ -350,11 +387,10 @@ a {
     padding: 12px 16px;
     background-color: #ada89e;
     border-radius: 10px;
-    /*position: relative;*/
-    /*flex-flow: column;*/
     width: 400px;
     margin: 5% auto auto auto;
     text-align: center;
+    box-shadow: 10px 10px 20px #ada89e;
 }
 
 .ifyouwant {
@@ -364,4 +400,11 @@ a {
 .ifyouwant a:hover {
     color: #9ae5e5;
     border-bottom: 2px solid #9ae5e5;
-}+
+}
+
+.filename {
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    width: 100%;
+}

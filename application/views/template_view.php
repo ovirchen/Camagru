@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
-<!--<div class="body">-->
     <header class="header">
         <div class="header-logo">
             <a href="http://localhost:8080">
@@ -35,14 +34,13 @@
     </header>
 
     <?php include 'application/views/' . $content_view; ?>
+
     <footer class="footer">
         <div>
             <p class="footer-logo">Copyright <?php echo date('Y');?></p>
         </div>
     </footer>
     <script src="/js/js.js" type="text/javascript"></script>
-    <script src="/js/main.js" type="text/javascript"></script>
-<!--</div>-->
 </body>
 
 </html>

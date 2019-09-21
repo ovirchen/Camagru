@@ -6,8 +6,11 @@ class Model_Photoes extends Model
 {
     public function get_data()
     {
+        $result = null;
         $photo = new Photo();
-        $result = $photo->getAllPhoto();
+        $arr = $photo->getAllPhoto();
+        if ($arr)
+            $result = array_reverse($arr);
 
         return $result;
     }
