@@ -176,6 +176,7 @@ div.profile {
 .add-photo {
     text-align: center;
     padding: 10px;
+    color: ghostwhite;
 
 }
 
@@ -351,6 +352,10 @@ input.button {
     margin-right: 5px;
 }
 
+.comments-wrapper {
+    font-size: 16px;
+}
+
 .comment-form {
     width: inherit;
     position: absolute;
@@ -369,7 +374,6 @@ input.button {
 }
 
 .video {
-    /*display: flex;*/
     margin: 20px;
 }
 

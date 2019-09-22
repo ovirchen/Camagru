@@ -5,7 +5,7 @@ class Controller_Photoes extends Controller
 {
     function __construct()
     {
-        session_start();
+        parent::__construct();
         $this->view = new View;
         $this->model = new Model_Photoes();
     }

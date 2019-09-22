@@ -1,5 +1,7 @@
 <?php
 
+require_once "User.php";
+
 class Controller_Profile extends Controller
 {
     function __construct()
@@ -45,7 +47,6 @@ class Controller_Profile extends Controller
         if (isset($_POST['data']))
         {
             $data = json_decode($_POST['data']);
-//            var_dump($data);
             $photo = new Photo();
             $photo->setId($data->photoId);
             if ($photo->addLike($data->userId))
@@ -53,8 +54,25 @@ class Controller_Profile extends Controller
         } else {
             echo json_encode(['status'=> 400, 'message' => 'Cannot set like']);
         }
-//        $data = json_decode($_POST['data']);
 
+    }
 
+    function action_add_comment()
+    {
+        if (isset($_POST['data']))
+        {
+            $data = json_decode($_POST['data']);
+            $photo = new Photo();
+            $photo->setId($data->photoId);
+            if ($photo->addComment($data->userId, $data->text)) {
+                $user = new User();
+                $user->getUserById($data->userId);
+                $comment = $photo->getLastComment();
+                $result = $user->getUsername() . ": " . $comment['text'];
+                echo json_encode(['status' => 200, 'message' => 'Comment added', 'amount' => $result]);
+            }
+        } else {
+            echo json_encode(['status'=> 400, 'message' => 'Cannot add comment']);
+        }
     }
 }

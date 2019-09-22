@@ -10,6 +10,7 @@ menu.onclick = function menuFunction() {
 };
 
 let likes = document.querySelectorAll(".icon-item");
+let comments = document.querySelectorAll(".add-comment");
 
 async function request(url, obj) {
     let fd = new FormData();
@@ -36,5 +37,26 @@ async function itemFunction(e) {
     }
 }
 
+async function commentFunction(e) {
+    let x = e.target;
+    e.preventDefault();
+    let photo_id = x.getAttribute('photo_id');
+    let user_id = x.getAttribute('user_id');
+    console.log(photo_id, user_id);
+    const el = x.previousElementSibling;
+    if (user_id != 0 && el.value.trim() != "") {
+        let responce = await request('/profile/add_comment', {userId: user_id, photoId: photo_id, text: el.value.trim()});
+        el.value = '';
+        if (responce.status == 200) {
+            const span = x.parentElement.previousElementSibling.firstElementChild;
+            span.textContent = responce.amount;
+            console.log("span: ", span);
+        } else {
+            alert("ERROR");
+        }
+    }
+}
+
 likes.forEach(like => like.addEventListener('click', itemFunction));
+comments.forEach(comment => comment.addEventListener('click', commentFunction));
 

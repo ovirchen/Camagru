@@ -6,7 +6,6 @@ class Photo extends Database
     private $id;
     private $user_id;
     private $path;
-    private $like;
 
     public function __construct() {
         $a = func_get_args();
@@ -19,7 +18,6 @@ class Photo extends Database
     public function __construct2($user_id, $path) {
         $this->user_id = $user_id;
         $this->path = $path;
-        $this->like = 0;
     }
 
     public function getId() { return $this->id; }
@@ -31,7 +29,6 @@ class Photo extends Database
     public function getPath() { return $this->path; }
     public function setPath($path) { $this->path = $path; }
 
-    public function getLike() { return $this->like; }
     public function addLike($user_id)
     {
         try {
@@ -139,6 +136,39 @@ class Photo extends Database
         } catch (PDOException $e)
         {
             return false;
+        }
+    }
+
+    public function addComment($user_id, $comment) {
+        try {
+            $stmt = parent::getInstance()->prepare('INSERT INTO `comment` (photo_id, user_id, text) VALUES (? ,? ,?)');
+            $stmt->bindParam(1, $this->id);
+            $stmt->bindParam(2, $user_id);
+            $stmt->bindParam(3, $comment);
+            return $stmt->execute();
+        } catch (PDOException $e)
+        {
+            return false;
+        }
+    }
+
+    public function getLastComment() {
+        try {
+            $stmt = parent::getInstance()->prepare('SELECT * FROM `comment` WHERE photo_id=?');
+            $stmt->bindParam(1, $this->id);
+            $stmt->execute();
+            if (!$stmt)
+                return null;
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($res)
+            {
+                $result = array_reverse($res);
+                return $result[0];
+            }
+            return null;
+        } catch (PDOException $e)
+        {
+            return null;
         }
     }
 }

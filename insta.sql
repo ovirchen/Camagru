@@ -60,8 +60,7 @@ CREATE TABLE `likes` (
 CREATE TABLE `photo` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `path` varchar(255) NOT NULL,
-  `likes` int(10) UNSIGNED DEFAULT '0'
+  `path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

@@ -27,18 +27,31 @@
                     echo '">
                                         <span class="likes-item">' . $photo->countLikes() . '</span> 
                                     </div>
-                                    <a href="/profile?id='. $user->getId() .'">
+                                        <a href="/profile?id='. $user->getId() .'">
                                         <div>
                                             ' . $user->getUsername() . '
                                         </div>
                                     </a>
                                 </div>
                                 <div class="comments-wrapper">
-                                    <span>Comment</span>
+                                    <span>';
+                                    if ($res = $photo->getLastComment()) {
+                                        $user->getUserById($res['user_id']);
+                                        echo $user->getUsername(). ': ' .$res['text'];
+                                    }
+                                    else
+                                        echo 'Comment';
+                                    echo '</span>
                                 </div>
-                                <form class="comment-form" action="" method="POST">
-                                    <input type="text" placeholder="Leave your comment">
-                                    <input type="submit" value="send">
+                                <form class="comment-form">
+                                    <input name="comment" type="text" placeholder="Leave your comment">
+                                    <input class="add-comment" type="submit" value="send" 
+                                    photo_id="'. $data[$len]['id'] . '" user_id="';
+                if (isset($_SESSION['user']))
+                    echo $_SESSION['user']['id'];
+                else
+                    echo 0;
+                echo '">
                                 </form>
                               </div>';
         }
