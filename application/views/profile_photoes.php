@@ -12,8 +12,13 @@
             $user->getUserById($data[$len]['user_id']);
             echo '<div class="element-wrapper">
                                 <div class="photo-wrapper">
-                                    <img class="image-item" src=' . $data[$len]['path'] . ' alt="">
-                                </div>
+                                    <img class="image-item" src=' . $data[$len]['path'] . ' alt="">';
+                                    if (strpos($_SERVER['REQUEST_URI'], "profile") && isset($_SESSION['user'])
+                                    && ($_SESSION['user']['id'] == $data[$len]['user_id'])) {
+                                        echo '<img class="cross" src="/images/cross.png" alt="" photo_id="'.
+                                            $data[$len]['id'] .'">';
+                                    }
+                               echo '</div>
                                 <div class="likes-wrapper">
                                     <div class="icons">
                                         <img class="icon-item" id="like" src="images/like.png" photo_id="'.
@@ -37,6 +42,10 @@
                                     <span>';
                                     if ($res = $photo->getLastComment()) {
                                         $user->getUserById($res['user_id']);
+                                        if (strlen($res['text']) > 56)
+                                        {
+                                            $res['text'] = substr($res['text'], 0, 56) . "...";
+                                        }
                                         echo $user->getUsername(). ': ' .$res['text'];
                                     }
                                     else

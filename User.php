@@ -67,7 +67,10 @@ VALUES (? ,? ,? ,? ,?)");
             $stmt->bindParam(3, $this->lastname);
             $stmt->bindParam(4, $this->email);
             $stmt->bindParam(5, $passwd);
-            return $stmt->execute();
+            if ($stmt->execute())
+                return $this->getUserByEmail($this->email);
+            else
+                return false;
         } catch (PDOException $e)
         {
 
@@ -150,8 +153,10 @@ VALUES (? ,? ,? ,? ,?)");
         }
     }
 
-    public function updateUser() {
-
+    public function updateUser($id) {
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET valid=1 WHERE id=?');
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
     }
 
     public function deleteUser($username) : bool {

@@ -1,6 +1,5 @@
 <?php
 
-require_once "User.php";
 
 class Controller_Profile extends Controller
 {
@@ -42,6 +41,20 @@ class Controller_Profile extends Controller
         header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
     }
 
+    function action_delete_photo()
+    {
+        if (isset($_POST['data']))
+        {
+            $data = json_decode($_POST['data']);
+            $photo = new Photo();
+            if ($photo->deletePhoto($data->photoId)) {
+                echo json_encode(['status' => 200, 'message' => 'Photo deleted']);
+                return;
+            }
+        }
+        echo json_encode(['status'=> 400, 'message' => 'Cannot delete photo']);
+    }
+
     function action_add_like()
     {
         if (isset($_POST['data']))
@@ -49,11 +62,12 @@ class Controller_Profile extends Controller
             $data = json_decode($_POST['data']);
             $photo = new Photo();
             $photo->setId($data->photoId);
-            if ($photo->addLike($data->userId))
+            if ($photo->addLike($data->userId)) {
                 echo json_encode(['status' => 200, 'message' => 'Like added', 'amount' => $photo->countLikes()]);
-        } else {
-            echo json_encode(['status'=> 400, 'message' => 'Cannot set like']);
+                return;
+            }
         }
+        echo json_encode(['status'=> 400, 'message' => 'Cannot set like']);
 
     }
 
@@ -70,9 +84,9 @@ class Controller_Profile extends Controller
                 $comment = $photo->getLastComment();
                 $result = $user->getUsername() . ": " . $comment['text'];
                 echo json_encode(['status' => 200, 'message' => 'Comment added', 'amount' => $result]);
+                return;
             }
-        } else {
-            echo json_encode(['status'=> 400, 'message' => 'Cannot add comment']);
         }
+        echo json_encode(['status'=> 400, 'message' => 'Cannot add comment']);
     }
 }

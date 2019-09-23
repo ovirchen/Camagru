@@ -11,11 +11,11 @@ menu.onclick = function menuFunction() {
 
 let likes = document.querySelectorAll(".icon-item");
 let comments = document.querySelectorAll(".add-comment");
+let delPhotoes = document.querySelectorAll(".cross");
 
 async function request(url, obj) {
     let fd = new FormData();
     fd.append('data', JSON.stringify(obj));
-
     let response = await fetch(url,{ method: 'POST', body: fd });
     return await response.json();
 }
@@ -46,10 +46,13 @@ async function commentFunction(e) {
     const el = x.previousElementSibling;
     if (user_id != 0 && el.value.trim() != "") {
         let responce = await request('/profile/add_comment', {userId: user_id, photoId: photo_id, text: el.value.trim()});
-        el.value = '';
+        el.value = "";
         if (responce.status == 200) {
             const span = x.parentElement.previousElementSibling.firstElementChild;
-            span.textContent = responce.amount;
+            let str = responce.amount;
+            if (responce.amount.length > 56)
+                str = responce.amount.substr(0, 56) + '...';
+            span.textContent = str;
             console.log("span: ", span);
         } else {
             alert("ERROR");
@@ -57,6 +60,23 @@ async function commentFunction(e) {
     }
 }
 
+async function delPhotoFunction(e) {
+    let x = e.target;
+    let photo_id = x.getAttribute('photo_id');
+    console.log(photo_id);
+    let responce = await request('/profile/delete_photo', {photoId: photo_id});
+    if (responce.status == 200) {
+        const photo = x.parentElement.parentElement;
+        console.log(photo);
+        photo.remove();
+    } else {
+        alert("ERROR");
+    }
+}
+
+
+
 likes.forEach(like => like.addEventListener('click', itemFunction));
 comments.forEach(comment => comment.addEventListener('click', commentFunction));
+delPhotoes.forEach(delphoto => delphoto.addEventListener('click', delPhotoFunction));
 

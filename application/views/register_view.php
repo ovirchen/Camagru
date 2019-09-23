@@ -1,7 +1,7 @@
 
 <section class="main-slider">
     <div class="registration">
-        <form class="login" action="main/register" method="POST">
+        <form class="login" action="register/register" method="POST">
             <div>
                 <label for="username">Username*</label>
                 <input id="username" type="text" name="username" value="" maxlength=30
@@ -20,7 +20,7 @@
             <div>
                 <label for="email">Email*</label>
                 <input id="email" type="email" name="email" value="" maxlength=255
-                       placeholder="email@.com">
+                       placeholder="email@.com" required>
             </div>
             <div>
                 <label for="password">Password*</label>

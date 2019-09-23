@@ -364,6 +364,7 @@ input.button {
 
 .comment-form input[type=text], .comment-form input[type=submit] {
     width: 180px;
+    height: auto;
     margin: 5px;
 }
 
@@ -411,4 +412,13 @@ input.button {
     margin: 0;
     flex-wrap: wrap;
     width: 100%;
+}
+
+.cross {
+    position: absolute;
+    width: 25px;
+    height: auto;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
 }

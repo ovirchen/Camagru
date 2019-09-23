@@ -19,7 +19,13 @@ class Route
                 $controller_name = $route[1];
         }
         if (!empty($route[2])) {
-            $action = $route[2];
+            if (strpos($route[2], '?id='))
+            {
+                $result = explode('?id=', $route[2]);
+                $action = $result[0];
+            }
+            else
+                $action = $route[2];
         }
         $model_name = 'model_' . $controller_name;
         $controller_name = 'controller_' . $controller_name;

@@ -127,12 +127,17 @@ class Photo extends Database
         }
     }
 
-    public function deletePhoto($path) : bool {
+    public function deletePhoto($id) : bool {
         try {
-            $stmt = parent::getInstance()->prepare('DELETE FROM `photo` WHERE EXISTS path=?');
-            $stmt->bindParam(1, $path);
+            $stmt = parent::getInstance()->prepare('DELETE FROM `comment` WHERE photo_id=?');
+            $stmt->bindParam(1, $id);
             $stmt->execute();
-            return true;
+            $stmt = parent::getInstance()->prepare('DELETE FROM `likes` WHERE photo_id=?');
+            $stmt->bindParam(1, $id);
+            $stmt->execute();
+            $stmt = parent::getInstance()->prepare('DELETE FROM `photo` WHERE id=?');
+            $stmt->bindParam(1, $id);
+            return $stmt->execute();
         } catch (PDOException $e)
         {
             return false;

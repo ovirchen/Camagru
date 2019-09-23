@@ -1,7 +1,7 @@
 
 <section class="main-slider">
     <div class="registration">
-        <form class="login" action="main/login" method="POST">
+        <form class="login" action="login/login" method="POST">
             <div>
                 <label for="username">Username</label>
                 <input id="username" type="text" name="username" value="" maxlength=30

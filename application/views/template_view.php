@@ -24,7 +24,7 @@
                 <?php
 
                 if (isset($_SESSION['user']))
-                    echo "<a href=\"http://localhost:8080/main/logout\">LOGOUT</a>";
+                    echo "<a href=\"http://localhost:8080/login/logout\">LOGOUT</a>";
                 else
                     echo "<a href=\"http://localhost:8080/login\">LOGIN</a>";
 
