@@ -13,6 +13,7 @@ let likes = document.querySelectorAll(".icon-item");
 let comments = document.querySelectorAll(".add-comment");
 let delPhotoes = document.querySelectorAll(".cross");
 
+
 async function request(url, obj) {
     let fd = new FormData();
     fd.append('data', JSON.stringify(obj));
@@ -75,8 +76,6 @@ async function delPhotoFunction(e) {
 }
 
 
-
 likes.forEach(like => like.addEventListener('click', itemFunction));
 comments.forEach(comment => comment.addEventListener('click', commentFunction));
 delPhotoes.forEach(delphoto => delphoto.addEventListener('click', delPhotoFunction));
-

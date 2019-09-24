@@ -28,10 +28,6 @@ class Controller_Register extends Controller
             }
             $user->insertUser();
 
-
-//            $headers = "Reply-To: ". $email . "\r\n";
-//            $headers .= "CC: susan@example.com\r\n";
-//            $headers .= "MIME-Version: 1.0\r\n";
             $headers = "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
             $message = '<html><body>';
@@ -40,8 +36,6 @@ class Controller_Register extends Controller
             <div>click on link: <a href="http://localhost:8080/register/check_email?id='.
                 $user->getId() .'">CLICK ME</a></div>';
             $message .= '</body></html>';
-
-
 
             mail($email, 'Validate your account TAKEaPICTURE', $message, $headers);
         }
