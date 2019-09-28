@@ -43,19 +43,66 @@ class User extends Database
     public function setId($id) { $this->id = $id; }
 
     public function getUsername() { return $this->username; }
-    public function setUsername($username) { $this->username = $username; }
+    public function setUsername($username) {
+        $stmt = parent::getInstance()->prepare('SELECT * FROM `user` WHERE BINARY username=? AND NOT id=?');
+        $stmt->bindParam(1, $username);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        if ($stmt && ($result = $stmt->fetch(PDO::FETCH_ASSOC)))
+                return false;
+        $this->username = $username;
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET username=? WHERE id=?');
+        $stmt->bindParam(1, $username);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        return $stmt;
+    }
 
     public function getFirstname() { return $this->firstname; }
-    public function setFirstname($firstname) { $this->firstname = $firstname; }
+    public function setFirstname($firstname) {
+        $this->firstname = $firstname;
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET firstname=? WHERE id=?');
+        $stmt->bindParam(1, $firstname);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        return $stmt;
+    }
 
     public function getLastname() { return $this->lastname; }
-    public function setLastname($lastname) { $this->lastname = $lastname; }
+    public function setLastname($lastname) {
+        $this->lastname = $lastname;
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET lastname=? WHERE id=?');
+        $stmt->bindParam(1, $lastname);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        return $stmt;
+    }
 
     public function getEmail() { return $this->email; }
-    public function setEmail($email) { $this->email = $email; }
+    public function setEmail($email) {
+        $stmt = parent::getInstance()->prepare('SELECT * FROM `user` WHERE email=? AND NOT id=?');
+        $stmt->bindParam(1, $email);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        if ($stmt && ($result = $stmt->fetch(PDO::FETCH_ASSOC)))
+            return false;
+        $this->email = $email;
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET email=? WHERE id=?');
+        $stmt->bindParam(1, $email);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        return $stmt;
+    }
 
     public function getPassword() { return $this->password; }
-    public function setPassword($password) { $this->password = $password; }
+    public function setPassword($password) {
+        $this->password = $password;
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET password=? WHERE id=?');
+        $stmt->bindParam(1, $password);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        return $stmt;
+    }
 
     public function insertUser() : bool {
         try {
@@ -84,7 +131,7 @@ VALUES (? ,? ,? ,? ,?)");
 
     public function getUserByName($username) {
         try {
-            $stmt = parent::getInstance()->prepare('SELECT * FROM `user` WHERE username=?');
+            $stmt = parent::getInstance()->prepare('SELECT * FROM `user` WHERE BINARY username=?');
             $stmt->bindParam(1, $username);
             $stmt->execute();
             if (!$stmt)
@@ -92,12 +139,12 @@ VALUES (? ,? ,? ,? ,?)");
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if (!$result)
                 return false;
-            $this->setId($result['id']);
-            $this->setUsername($result['username']);
-            $this->setFirstname($result['firstname']);
-            $this->setLastname($result['lastname']);
-            $this->setEmail($result['email']);
-            $this->setPassword($result['password']);
+            $this->id = $result['id'];
+            $this->username = $result['username'];
+            $this->firstname = $result['firstname'];
+            $this->lastname = $result['lastname'];
+            $this->email = $result['email'];
+            $this->password = $result['password'];
             return $result;
 
         } catch (PDOException $e)
@@ -108,7 +155,7 @@ VALUES (? ,? ,? ,? ,?)");
 
     public function getUserByEmail($email): bool {
         try {
-            $stmt = parent::getInstance()->prepare('SELECT * FROM `user` WHERE email=?');
+            $stmt = parent::getInstance()->prepare('SELECT * FROM `user` WHERE BINARY email=?');
             $stmt->bindParam(1, $email);
             $stmt->execute();
             if (!$stmt)
@@ -116,12 +163,12 @@ VALUES (? ,? ,? ,? ,?)");
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if (!$result)
                 return false;
-            $this->setId($result['id']);
-            $this->setUsername($result['username']);
-            $this->setFirstname($result['firstname']);
-            $this->setLastname($result['lastname']);
-            $this->setEmail($result['email']);
-            $this->setPassword($result['password']);
+            $this->id = $result['id'];
+            $this->username = $result['username'];
+            $this->firstname = $result['firstname'];
+            $this->lastname = $result['lastname'];
+            $this->email = $result['email'];
+            $this->password = $result['password'];
             return true;
 
         } catch (PDOException $e)
@@ -140,12 +187,12 @@ VALUES (? ,? ,? ,? ,?)");
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if (!$result)
                 return false;
-            $this->setId($result['id']);
-            $this->setUsername($result['username']);
-            $this->setFirstname($result['firstname']);
-            $this->setLastname($result['lastname']);
-            $this->setEmail($result['email']);
-            $this->setPassword($result['password']);
+            $this->id = $result['id'];
+            $this->username = $result['username'];
+            $this->firstname = $result['firstname'];
+            $this->lastname = $result['lastname'];
+            $this->email = $result['email'];
+            $this->password = $result['password'];
             return $result;
         } catch (PDOException $e)
         {
@@ -159,12 +206,21 @@ VALUES (? ,? ,? ,? ,?)");
         $stmt->execute();
     }
 
-    public function deleteUser($username) : bool {
+    public function deleteUser($id) : bool {
         try {
-            $stmt = parent::getInstance()->prepare('DELETE FROM `user` WHERE EXISTS username=?');
-            $stmt->bindParam(1, $username);
-            $stmt->execute();
-            return true;
+            $stmt = parent::getInstance()->prepare('DELETE FROM `user` WHERE id=?');
+            $stmt->bindParam(1, $id);
+            if ($stmt->execute())
+            {
+                $stmt = parent::getInstance()->prepare('DELETE FROM `comment` WHERE user_id=?');
+                $stmt->bindParam(1, $id);
+                $stmt->execute();
+                $stmt = parent::getInstance()->prepare('DELETE FROM `likes` WHERE user_id=?');
+                $stmt->bindParam(1, $id);
+                $stmt->execute();
+                return true;
+            }
+            return false;
         } catch (PDOException $e)
         {
             return false;

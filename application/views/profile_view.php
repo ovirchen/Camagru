@@ -9,8 +9,8 @@
                 if (isset($_GET['id'])) {
                     $result = $photo->getProfilePhoto($_GET['id']);
                     if (!$result)
-                        $result['path'] = "images/profiles/takeapicture.jpg";
-                    echo '<img class="profile-photo" src="' . $result['path'] . '" alt=""> ';
+                        $result['path'] = "/images/profiles/takeapicture.jpg";
+                    echo '<img class="profile-photo" src="/' . $result['path'] . '" alt=""> ';
                     $us = new User();
                     $us->getUserById($_GET['id']);
                     echo "<div class='username'>
@@ -28,9 +28,15 @@
                           </div>";
                 }
                 if (!isset($_GET['id']) || (isset($_SESSION['user']) && ($_SESSION['user']['id'] == $_GET['id']))) {
-                    echo '<div class="add-photo">
+                    echo '<div>
+                            <form action="http://localhost:8080/profile/edit" method="POST">
+                                <button class="edit_profile">Edit profile</button>
+                            </form>
+                          </div>
+                          <div class="add-photo">
+                            <p>Load new picture:</p>
                             <form enctype = "multipart/form-data" action = "http://localhost:8080/profile/add_photo" method = "POST" >
-                              <input type = "hidden" name = "MAX_FILE_SIZE" value = "100000" />
+                              <input type = "hidden" name = "MAX_FILE_SIZE" value = "300000" />
                               <input class="filename" name = "filename" type = "file" />
                               <input class="button" type = "submit" value = "OK" />
                            </form >

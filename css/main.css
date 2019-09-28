@@ -108,7 +108,7 @@ div.profile {
     width: 100%;
     font-style: oblique;
     display: grid;
-    grid-template-areaS: "profile-info profile-photoes";
+    grid-template-areaS: "profile-info profile-photoes profile-photoes profile-photoes";
 }
 
 .profile-info {
@@ -116,10 +116,6 @@ div.profile {
     display: flex;
     flex-flow: column;
     width: 200px;
-}
-
-.profile-info form {
-
 }
 
 .profile-photo {
@@ -173,11 +169,18 @@ div.profile {
 .username {
     padding: 10px;
 }
+
 .add-photo {
     text-align: center;
     padding: 10px;
     color: ghostwhite;
+    background-color: #ada89e;
+    border-radius: 10px;
 
+}
+.add-photo p{
+    padding-bottom: 10px;
+    font-style: normal;
 }
 
 div.registration {
@@ -244,6 +247,7 @@ input.button {
     width: 160px;
     background-color: #cca225;
     color: whitesmoke;
+    margin-bottom: 5px;
 }
 
 @media screen and (max-width: 820px){
@@ -388,6 +392,13 @@ input.button {
     margin: 5% auto auto auto;
 }
 
+
+.canvas_img {
+    /*align-items: center;*/
+    /*border-radius: 10px;*/
+    /*justify-content: center;*/
+}
+
 .login {
     padding: 12px 16px;
     background-color: #ada89e;
@@ -421,4 +432,16 @@ input.button {
     top: 5px;
     right: 5px;
     cursor: pointer;
+}
+
+
+.edit_profile, .delete_profile {
+    width: 160px;
+    height: 40px;
+    background-color: #cca225;
+    color: whitesmoke;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }

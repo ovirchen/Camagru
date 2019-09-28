@@ -21,6 +21,65 @@ class Controller_Profile extends Controller
             'template_view.php', $data);
     }
 
+    function action_edit()
+    {
+        $this->view->generate('profile_edit_view.php',
+            'template_view.php', null);
+    }
+
+    function action_delete()
+    {
+        if (isset($_SESSION['user'])) {
+            $user = new User();
+            if ($user->deleteUser($_SESSION['user']['id'])) {
+                $photo = new Photo();
+                if ($result = $photo->getProfilePhoto($_SESSION['user']['id']))
+                    $photo->deletePhoto($result['id']);
+                if ($result = $photo->getPhotoByUser($_SESSION['user']['id']))
+                {
+                    foreach ($result as $ph) {
+                        $photo->deletePhoto($ph['id']);
+                    }
+                }
+                echo json_encode(['status' => 200, 'message' => 'User deleted']);
+                return;
+            }
+        }
+        echo json_encode(['status'=> 400, 'message' => 'Cannot delete user']);
+    }
+
+    function action_add_profile_photo()
+    {
+        if ($_FILES['filename']['error'] != 0) {
+            //alert
+            echo "ERROR LOADING FILE";
+            var_dump($_FILES);
+            die();
+            header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
+        }
+        $filename = $_FILES['filename']['name'];
+        $file = basename($filename);
+        $filename = $_FILES['filename']['tmp_name'];
+        $newfile = "images/profiles/" . $file;
+        // проверка наличия такого файла
+        copy($filename, $newfile);
+        $user = $_SESSION['user'];
+        $photo = new Photo();
+        if ($photo->getProfilePhoto($user['id'])) {
+            $delfile = $photo->getPath();
+            if (file_exists($delfile))
+                unlink($delfile);
+            $photo->setPath($newfile);
+        }
+        else
+        {
+            $photo->setUserId($user['id']);
+            $photo->setPath($newfile);
+            $photo->insertPhoto();
+        }
+        header('Location: http://localhost:8080/profile/edit');
+    }
+
     function action_add_photo()
     {
         if ($_FILES['filename']['error'] != 0) {

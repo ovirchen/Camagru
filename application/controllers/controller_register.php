@@ -47,4 +47,53 @@ class Controller_Register extends Controller
         $user = new User();
         $user->updateUser($_GET['id']);
     }
+
+    function action_edit()
+    {
+        $user = new User();
+        $user->getUserById($_SESSION['user']['id']);
+        if (($username = trim($_POST['username'])) != "")
+        {
+            if (!($user->setUsername($username))) {
+                echo "SUCH USERNAME ALREADY EXIST";
+                echo "\nuser: " . $user->getUsername();
+                echo "\nnew: " . $username;
+                var_dump($user);
+                die();
+            }
+            $_SESSION['user']['username'] = $username;
+        }
+        if (($firstname = trim($_POST['firstname'])) != "")
+        {
+            $user->setFirstname($firstname);
+            $_SESSION['user']['firstname'] = $firstname;
+        }
+        if (($lastname = trim($_POST['lastname'])) != "")
+        {
+            $user->setLastname($lastname);
+            $_SESSION['user']['lastname'] = $lastname;
+        }
+        if (($email = trim($_POST['email'])) != "")
+        {
+            if (!($user->setEmail($email))) {
+                echo "SUCH EMAIL ALREADY EXIST";
+                die();
+            }
+            $_SESSION['user']['email'] = $email;
+        }
+        if (($password = trim($_POST['password'])) != "" && ($password2 = trim($_POST['password2'])) != "")
+        {
+            if ($password == $password2)
+            {
+                $passwd = hash('whirlpool', $password);
+                $user->setPassword($passwd);
+                $_SESSION['user']['password'] = $passwd;
+            }
+            else {
+                echo "INCORRECT PASSWORD. TRY AGAIN";
+                die();
+            }
+        }
+        header('Location: http://localhost:8080/profile');
+    }
 }

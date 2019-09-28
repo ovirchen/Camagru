@@ -119,6 +119,11 @@ class Photo extends Database
                 return null;
             }
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                $this->id = $result['id'];
+                $this->user_id = $result['user_id'];
+                $this->path = $result['path'];
+            }
             return $result;
         } catch (PDOException $e)
         {

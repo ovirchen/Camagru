@@ -1,6 +1,6 @@
 
 <section class="main-slider">
-    <div class="profile-photoes">
+    <div class="main-photo">
         <img class="main-picture" src="images/headerphoto.jpg" alt="">
     </div>
 </section>
