@@ -9,7 +9,7 @@
                 if (isset($_GET['id'])) {
                     $result = $photo->getProfilePhoto($_GET['id']);
                     if (!$result)
-                        $result['path'] = "/images/profiles/takeapicture.jpg";
+                        $result['path'] = "images/profiles/takeapicture.jpg";
                     echo '<img class="profile-photo" src="/' . $result['path'] . '" alt=""> ';
                     $us = new User();
                     $us->getUserById($_GET['id']);
@@ -22,7 +22,7 @@
                     $result = $photo->getProfilePhoto($user['id']);
                     if (!$result)
                         $result['path'] = "images/profiles/takeapicture.jpg";
-                    echo '<img class="profile-photo" src="' . $result['path'] . '" alt=""> ';
+                    echo '<img class="profile-photo" src="/' . $result['path'] . '" alt=""> ';
                     echo "<div class='username'>
                             <p>" . $user['username'] . "</p>
                           </div>";
@@ -47,3 +47,5 @@
         <?php include 'application/views/profile_photoes.php'; ?>
     </div>
 </section>
+
+<!--<script type='text/javascript'>alert('THE GAME');</script>-->

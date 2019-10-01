@@ -1,5 +1,6 @@
 <?php
 
+
 class Controller_Register extends Controller
 {
     public function action_index()
@@ -42,10 +43,75 @@ class Controller_Register extends Controller
         header('Location: http://localhost:8080');
     }
 
+    function action_reset_password()
+    {
+        echo '<script>
+                    var email = prompt("Enter your email", "email@.com");
+                    window.location.href = "http://localhost:8080/register/mail_password?email=" + email;
+              </script>';
+    }
+
+    function action_mail_password()
+    {
+        $user = new User();
+//        var_dump($_GET);
+//        die();
+        if (!($user->getUserByEmail($_GET['email'])))
+        {
+            echo "<script>
+                alert(\"SUCH EMAIL DOES NOT EXIST\");
+                location.href='http://localhost:8080/login';
+                </script>";
+        }
+        else {
+        $headers = "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+        $message = '<html><body>';
+        $message .= '<div>HI THERE!</div>
+            <div>You reset your password for account TAKEaPICTURE.</div>
+            <div>Click on link to make a new one: <a href="http://localhost:8080/login/new_password?id='.
+            $user->getId() .'">CLICK ME</a></div>';
+        $message .= '</body></html>';
+
+        mail($user->getEmail(), 'Make a new password for account TAKEaPICTURE', $message, $headers);
+        }
+        header('Location: http://localhost:8080');
+    }
+
+    function action_new_password()
+    {
+        $user = new User();
+        $user->getUserById($_POST['id']);
+
+        if (($password = trim($_POST['password'])) != "" && ($password2 = trim($_POST['password2'])) != "")
+        {
+            if ($password == $password2)
+            {
+                $passwd = hash('whirlpool', $password);
+                $user->setPassword($passwd);
+                echo "<script>
+                alert(\"NOW YOU HAVE A NEW PASSWORD\");
+                location.href='http://localhost:8080';
+                </script>";
+            }
+            else {
+                echo "<script>
+                alert(\"INCORRECT PASSWORD. TRY AGAIN\");
+                location.href='http://localhost:8080';
+                </script>";
+            }
+        }
+    }
+
     function action_check_email()
     {
         $user = new User();
         $user->updateUser($_GET['id']);
+        $photo = new Photo();
+        $photo->setPath("images/profiles/default.jpg");
+        $photo->setUserId($_GET['id']);
+        $photo->insertPhoto();
+        header('Location: http://localhost:8080');
     }
 
     function action_edit()
@@ -55,11 +121,10 @@ class Controller_Register extends Controller
         if (($username = trim($_POST['username'])) != "")
         {
             if (!($user->setUsername($username))) {
-                echo "SUCH USERNAME ALREADY EXIST";
-                echo "\nuser: " . $user->getUsername();
-                echo "\nnew: " . $username;
-                var_dump($user);
-                die();
+                echo "<script>
+                    alert(\"SUCH USERNAME ALREADY EXIST\");
+                    location.href='http://localhost:8080/profile/edit';
+                </script>";
             }
             $_SESSION['user']['username'] = $username;
         }
@@ -76,8 +141,10 @@ class Controller_Register extends Controller
         if (($email = trim($_POST['email'])) != "")
         {
             if (!($user->setEmail($email))) {
-                echo "SUCH EMAIL ALREADY EXIST";
-                die();
+                echo "<script>
+                alert(\"SUCH EMAIL ALREADY EXIST\");
+                location.href='http://localhost:8080/profile/edit';
+                </script>";
             }
             $_SESSION['user']['email'] = $email;
         }
@@ -90,10 +157,13 @@ class Controller_Register extends Controller
                 $_SESSION['user']['password'] = $passwd;
             }
             else {
-                echo "INCORRECT PASSWORD. TRY AGAIN";
-                die();
+                echo "<script>
+                alert(\"INCORRECT PASSWORD. TRY AGAIN\");
+                location.href='http://localhost:8080/profile/edit';
+                </script>";
             }
         }
         header('Location: http://localhost:8080/profile');
     }
 }
+

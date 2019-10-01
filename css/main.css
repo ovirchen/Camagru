@@ -378,11 +378,17 @@ input.button {
     justify-content: center;
 }
 
+.div_canvas {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
 .video {
     margin: 20px;
 }
 
-.camera button {
+.camera button, .div_canvas button {
     width: 160px;
     padding: 12px 16px;
     background-color: #cca225;
@@ -393,7 +399,8 @@ input.button {
 }
 
 
-.canvas_img {
+.canvas {
+    margin: 10px;
     /*align-items: center;*/
     /*border-radius: 10px;*/
     /*justify-content: center;*/
@@ -410,12 +417,18 @@ input.button {
 }
 
 .ifyouwant {
-    padding: 0px 0px 30px 0px;
+    padding: 20px 0px 30px 0px;
+    font-weight: bold;
 }
 
-.ifyouwant a:hover {
+.ifyouwant a:hover, .forgot_password a:hover {
     color: #9ae5e5;
     border-bottom: 2px solid #9ae5e5;
+}
+
+.forgot_password {
+    padding: 0px 0px 20px 0px;
+    left: 0;
 }
 
 .filename {

@@ -51,11 +51,19 @@ class Controller_Profile extends Controller
     function action_add_profile_photo()
     {
         if ($_FILES['filename']['error'] != 0) {
-            //alert
-            echo "ERROR LOADING FILE";
-            var_dump($_FILES);
-            die();
-            header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
+            if ($_FILES['filename']['error'] == 2)
+            {
+                echo "<script>
+                alert(\"ERROR: The file is too big\");
+                location.href='http://localhost:8080/profile?id=" .  $_SESSION['user']['id'] . "';
+                </script>";
+            }
+            else {
+                echo "<script>
+                alert(\"ERROR: Cannot loading the file\");
+                location.href='http://localhost:8080/profile?id=" .  $_SESSION['user']['id'] . "';
+                </script>";
+            }
         }
         $filename = $_FILES['filename']['name'];
         $file = basename($filename);
@@ -83,10 +91,19 @@ class Controller_Profile extends Controller
     function action_add_photo()
     {
         if ($_FILES['filename']['error'] != 0) {
-            //alert
-            echo "ERROR LOADING FILE";
-            die();
-            header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
+            if ($_FILES['filename']['error'] == 2)
+            {
+                echo "<script>
+                alert(\"ERROR: The file is too big\");
+                location.href='http://localhost:8080/profile?id=" .  $_SESSION['user']['id'] . "';
+                </script>";
+            }
+            else {
+                echo "<script>
+                alert(\"ERROR: Cannot loading the file\");
+                location.href='http://localhost:8080/profile?id=" .  $_SESSION['user']['id'] . "';
+                </script>";
+            }
         }
         $filename = $_FILES['filename']['name'];
         $file = basename($filename);
@@ -142,6 +159,16 @@ class Controller_Profile extends Controller
                 $user->getUserById($data->userId);
                 $comment = $photo->getLastComment();
                 $result = $user->getUsername() . ": " . $comment['text'];
+                
+                $headers = "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                $message = '<html><body>';
+                $message .= '<div>HI THERE!</div>
+            <div>You have a new comment!</div>
+            <div>Click on link to find it: <a href="http://localhost:8080">CLICK ME</a></div>';
+                $message .= '</body></html>';
+
+                mail($user->getEmail(), 'Make a new password for account TAKEaPICTURE', $message, $headers);
+
                 echo json_encode(['status' => 200, 'message' => 'Comment added', 'amount' => $result]);
                 return;
             }

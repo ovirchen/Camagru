@@ -40,7 +40,27 @@ class User extends Database
     }
 
     public function getId() { return $this->id; }
-    public function setId($id) { $this->id = $id; }
+    public function setId($id) {
+        $stmt = parent::getInstance()->prepare('UPDATE `user` SET id=? WHERE id=?');
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        if (!$stmt)
+            return;
+        $stmt = parent::getInstance()->prepare('UPDATE `comment` SET user_id=? WHERE user_id=?');
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        $stmt = parent::getInstance()->prepare('UPDATE `likes` SET user_id=? WHERE user_id=?');
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        $stmt = parent::getInstance()->prepare('UPDATE `photo` SET user_id=? WHERE user_id=?');
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $this->id);
+        $stmt->execute();
+        $this->id = $id;
+    }
 
     public function getUsername() { return $this->username; }
     public function setUsername($username) {
@@ -107,8 +127,8 @@ class User extends Database
     public function insertUser() : bool {
         try {
             $passwd = hash('whirlpool', $this->password);
-            $stmt = parent::getInstance()->prepare("INSERT INTO `user` (username, firstname, lastname, email, password)
-VALUES (? ,? ,? ,? ,?)");
+            $stmt = parent::getInstance()->prepare("INSERT INTO `user` (username, firstname, lastname, 
+email, password) VALUES (? ,? ,? ,? ,?)");
             $stmt->bindParam(1, $this->username);
             $stmt->bindParam(2, $this->firstname);
             $stmt->bindParam(3, $this->lastname);

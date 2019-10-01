@@ -56,6 +56,7 @@ async function deleteProfile(e)
         let responce = await request('http://localhost:8080/profile/delete');
         if (responce.status != 200) {
             alert("Database ERROR");
+            location.href='http://localhost:8080/profile';
         }
         else {
             window.location = 'http://localhost:8080/login/logout';

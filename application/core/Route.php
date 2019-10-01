@@ -24,6 +24,16 @@ class Route
                 $result = explode('?id=', $route[2]);
                 $action = $result[0];
             }
+            elseif (strpos($route[2], '?email='))
+            {
+                $result = explode('?email=', $route[2]);
+                $action = $result[0];
+            }
+            elseif (strpos($route[2], '%'))
+            {
+                $result = explode('%', $route[2]);
+                $action = $result[0];
+            }
             else
                 $action = $route[2];
         }
@@ -51,6 +61,8 @@ class Route
             if (method_exists($controller, $action)) {
                 $controller->$action();
             } else {
+                echo $action;
+                die();
                 throw new Exception('File not found.');
 //                self::ErrorPage404();
             }

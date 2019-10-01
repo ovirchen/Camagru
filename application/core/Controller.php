@@ -1,6 +1,7 @@
 <?php
 
 require_once "User.php";
+require_once "Photo.php";
 
 class Controller
 {

@@ -4,6 +4,10 @@ class Controller_Login extends Controller
 {
     public function action_index()
     {
+        if (isset($_SESSION['user']))
+        {
+            header('Location: http://localhost:8080');
+        }
         $this->view->generate('login_view.php',
             'template_view.php', null);
     }
@@ -20,9 +24,19 @@ class Controller_Login extends Controller
             $_SESSION['user'] = $test;
             header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
         }
-        echo "<script>alert(\"INCORRECT LOGIN OR PASSWORD\");</script>";
-        die();
-        header('Location: http://localhost:8080/login');
+        if ($test && $test['valid'] != 1)
+        {
+            echo "<script>
+                alert(\"PLEASE VERIFY YOUR EMAIL\");
+                location.href='http://localhost:8080/login';
+              </script>";
+        }
+        else {
+            echo "<script>
+                alert(\"INCORRECT LOGIN OR PASSWORD\");
+                location.href='http://localhost:8080/login';
+              </script>";
+        }
     }
 
     function action_logout()
@@ -30,5 +44,12 @@ class Controller_Login extends Controller
         $_SESSION['user'] = null;
         session_destroy();
         header('Location: http://localhost:8080');
+    }
+
+    public function action_new_password()
+    {
+        $data = array('id' => $_GET['id']);
+        $this->view->generate('password_view.php',
+            'template_view.php', $data);
     }
 }

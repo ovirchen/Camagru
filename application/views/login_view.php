@@ -12,6 +12,9 @@
                 <input id="password" type="password" name="password" value="" minlength=6 maxlength=255 required
                        placeholder="******">
             </div>
+            <div class="forgot_password">
+                <a href="register/reset_password">Click here if you forgot your password...</a>
+            </div>
             <div>
                 <input class="button" type="submit" value="OK">
             </div>

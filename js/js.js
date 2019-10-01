@@ -21,7 +21,7 @@ async function request(url, obj) {
     return await response.json();
 }
 
-async function itemFunction(e) {
+async function likeFunction(e) {
     let x = e.target;
     let photo_id = x.getAttribute('photo_id');
     let user_id = x.getAttribute('user_id');
@@ -33,8 +33,13 @@ async function itemFunction(e) {
             sibling.innerText = responce.amount;
             console.log("sibling: ", sibling);
         } else {
-            alert("ERROR");
+            alert(responce.message);
+            location.href='http://localhost:8080';
         }
+    }
+    else {
+        alert("ERROR: You are not logged in");
+        location.href='http://localhost:8080/login';
     }
 }
 
@@ -56,8 +61,13 @@ async function commentFunction(e) {
             span.textContent = str;
             console.log("span: ", span);
         } else {
-            alert("ERROR");
+            alert(responce.message);
+            location.href='http://localhost:8080';
         }
+    }
+    else {
+        alert("ERROR: You are not logged in");
+        location.href='http://localhost:8080/login';
     }
 }
 
@@ -71,11 +81,12 @@ async function delPhotoFunction(e) {
         console.log(photo);
         photo.remove();
     } else {
-        alert("ERROR");
+        alert(responce.message);
+        location.href='http://localhost:8080';
     }
 }
 
 
-likes.forEach(like => like.addEventListener('click', itemFunction));
+likes.forEach(like => like.addEventListener('click', likeFunction));
 comments.forEach(comment => comment.addEventListener('click', commentFunction));
 delPhotoes.forEach(delphoto => delphoto.addEventListener('click', delPhotoFunction));
