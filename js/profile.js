@@ -39,13 +39,13 @@
 //     }
 // });
 
-let delProfile = document.querySelector(".delete_profile");
+const delProfile = document.querySelector(".delete_profile");
 
 
 async function request(url, obj = null) {
-    let fd = new FormData();
+    const fd = new FormData();
     fd.append('data', JSON.stringify(obj));
-    let response = await fetch(url, { method: 'POST', body: fd });
+    const response = await fetch(url, { method: 'POST', body: fd });
     return await response.json();
 }
 
@@ -53,8 +53,8 @@ async function deleteProfile(e)
 {
     e.preventDefault();
     if (confirm("Do you really want to die?")) {
-        let responce = await request('http://localhost:8080/profile/delete');
-        if (responce.status != 200) {
+        const responce = await request('http://localhost:8080/profile/delete');
+        if (responce.status !== 200) {
             alert("Database ERROR");
             location.href='http://localhost:8080/profile';
         }
@@ -65,5 +65,3 @@ async function deleteProfile(e)
 }
 
 delProfile.addEventListener('click', deleteProfile);
-
-

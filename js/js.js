@@ -22,13 +22,13 @@ async function request(url, obj) {
 }
 
 async function likeFunction(e) {
-    let x = e.target;
-    let photo_id = x.getAttribute('photo_id');
-    let user_id = x.getAttribute('user_id');
+    const x = e.target;
+    const photo_id = x.getAttribute('photo_id');
+    const user_id = x.getAttribute('user_id');
     console.log(photo_id, user_id);
-    if (user_id != 0) {
-        let responce = await request('/profile/add_like', {userId: user_id, photoId: photo_id});
-        if (responce.status == 200) {
+    if (parseInt(user_id) !== 0) {
+        const responce = await request('/profile/add_like', {userId: user_id, photoId: photo_id});
+        if (responce.status === 200) {
             const sibling = x.nextElementSibling;
             sibling.innerText = responce.amount;
             console.log("sibling: ", sibling);
@@ -44,16 +44,16 @@ async function likeFunction(e) {
 }
 
 async function commentFunction(e) {
-    let x = e.target;
+    const x = e.target;
     e.preventDefault();
-    let photo_id = x.getAttribute('photo_id');
-    let user_id = x.getAttribute('user_id');
+    const photo_id = x.getAttribute('photo_id');
+    const user_id = x.getAttribute('user_id');
     console.log(photo_id, user_id);
     const el = x.previousElementSibling;
-    if (user_id != 0 && el.value.trim() != "") {
+    if (parseInt(user_id) !== 0 && el.value.trim() !== "") {
         let responce = await request('/profile/add_comment', {userId: user_id, photoId: photo_id, text: el.value.trim()});
         el.value = "";
-        if (responce.status == 200) {
+        if (responce.status === 200) {
             const span = x.parentElement.previousElementSibling.firstElementChild;
             let str = responce.amount;
             if (responce.amount.length > 56)
@@ -72,11 +72,11 @@ async function commentFunction(e) {
 }
 
 async function delPhotoFunction(e) {
-    let x = e.target;
-    let photo_id = x.getAttribute('photo_id');
+    const x = e.target;
+    const photo_id = x.getAttribute('photo_id');
     console.log(photo_id);
-    let responce = await request('/profile/delete_photo', {photoId: photo_id});
-    if (responce.status == 200) {
+    const responce = await request('/profile/delete_photo', {photoId: photo_id});
+    if (responce.status === 200) {
         const photo = x.parentElement.parentElement;
         console.log(photo);
         photo.remove();

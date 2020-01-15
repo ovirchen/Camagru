@@ -376,16 +376,18 @@ input.button {
     display: flex;
     flex-flow: column;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .div_canvas {
     display: flex;
     flex-flow: column;
     justify-content: center;
+    margin-top: 10px;
 }
 
 .video {
-    margin: 20px;
+    margin: 10px 20px;
 }
 
 .camera button, .div_canvas button {
@@ -457,4 +459,14 @@ input.button {
     font-size: 16px;
     margin-bottom: 20px;
     margin-top: 10px;
+}
+
+img.sticker {
+    height: 100px;
+    width: 100px;
+}
+
+.div_sticker {
+    margin-top: 20px;
+    cursor: pointer;
 }

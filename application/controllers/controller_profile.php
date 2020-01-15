@@ -117,6 +117,33 @@ class Controller_Profile extends Controller
         header('Location: http://localhost:8080/profile?id=' . $_SESSION['user']['id']);
     }
 
+    private function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    function action_add_camera_photo()
+    {
+        if (isset($_POST['data']))
+        {
+            $data = json_decode($_POST['data']);
+            $file = $this->generateRandomString(20);
+            $newFile = "images/photoes/" . $file . ".jpg";
+            $photo = new Photo($data->userId, $newFile);
+            // проверка наличия такого файла
+            copy($data->photoURL, $newFile);
+            if ($photo->insertPhoto())
+                echo json_encode(['status' => 200, 'message' => 'Snapshot added']);
+                return;
+        }
+        echo json_encode(['status'=> 400, 'message' => 'Cannot add camera photo']);
+    }
+
     function action_delete_photo()
     {
         if (isset($_POST['data']))

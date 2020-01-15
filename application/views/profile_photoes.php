@@ -46,7 +46,7 @@
                                         {
                                             $res['text'] = substr($res['text'], 0, 56) . "...";
                                         }
-                                        echo $user->getUsername(). ': ' .$res['text'];
+                                        echo $user->getUsername(). ': ' .htmlspecialchars($res['text']);
                                     }
                                     else
                                         echo 'Comment';
